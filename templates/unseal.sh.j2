@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+export VAULT_ADDR="http://127.0.0.1:{{ backend_port }}"
+initfile={{ vault_config_path}}/init.file
+
+# Get seal keys
+key_1=$(sed -n 1p "$initfile" | cut -d':' -f2 | tr -d '[:space:]')
+key_2=$(sed -n 2p "$initfile" | cut -d':' -f2 | tr -d '[:space:]')
+root_token=$(sed -n 4p "$initfile" | cut -d':' -f2 | tr -d '[:space:]')
+
+# unseal vault storage
+vault operator unseal $key_1 && vault operator unseal $key_2

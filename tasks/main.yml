@@ -1,12 +1,4 @@
 ---
 
-- name: install packages required for archive processing
-  yum:
-    name: "{{ yum_archive_packages }}"
-    state: installed
-
-- name: get vault binary
-  unarchive:
-    src: "{{ vault_url }}"
-    dest: "{{ vault_path }}"
-    remote_src: yes
+- import_playbook: install.yml
+- import_playbook: config.yml

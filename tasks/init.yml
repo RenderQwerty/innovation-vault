@@ -1,4 +1,10 @@
 ---
 
+- name: detect vault status
+  stat:
+    path: "{{ vault_config_path }}/init.file"
+  register: stat_result
+
 - name: initialise vault server
   shell: vault operator init > "{{ vault_config_path }}"/init.file
+  when: stat_result.stat.exists == False

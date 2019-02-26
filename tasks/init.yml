@@ -1,0 +1,4 @@
+---
+
+- name: initialise vault server
+  shell: vault operator init > "{{ vault_config_path }}"/init.file

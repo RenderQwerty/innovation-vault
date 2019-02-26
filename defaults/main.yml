@@ -1,0 +1,5 @@
+---
+
+yum_archive_packages:
+  - wget
+  - unzip

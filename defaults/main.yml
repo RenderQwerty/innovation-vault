@@ -5,4 +5,4 @@ yum_archive_packages:
   - unzip
 
 vault_url: https://releases.hashicorp.com/vault/1.0.3/vault_1.0.3_linux_amd64.zip
-vault_path: /usr/local/bin/
+vault_path: /usr/sbin/

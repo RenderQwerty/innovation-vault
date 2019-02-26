@@ -7,6 +7,6 @@
 
 - name: get vault binary
   unarchive:
-    src: "{{ vault.url }}"
-    dest: "{{ vault.install_path }}"
+    src: "{{ vault_url }}"
+    dest: "{{ vault_install_path }}"
     remote_src: yes

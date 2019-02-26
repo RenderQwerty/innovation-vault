@@ -4,8 +4,7 @@ yum_archive_packages:
   - wget
   - unzip
 
-vault:
-  - url: https://releases.hashicorp.com/vault/1.0.3/vault_1.0.3_linux_amd64.zip
-  - install_path: /usr/sbin/
-  - log_path: /var/log/vault/
-  - config_path: /etc/vault/
+vault_url: https://releases.hashicorp.com/vault/1.0.3/vault_1.0.3_linux_amd64.zip
+vault_install_path: /usr/sbin/
+vault_log_path: /var/log/vault/
+vault_config_path: /etc/vault/

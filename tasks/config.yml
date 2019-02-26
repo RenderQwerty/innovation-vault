@@ -1,6 +1,26 @@
 ---
 
-- name: copy config to server
+- name: create directory structure
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ vault_log_path }}"
+    - "{{ vault_config_path }}"
+    - "{{ vault_data_path }}"
+
+- name: copy config
+  template:
+    src: config.json.j2
+    dest: "{{ vault_config_path }}/config.json"
+
+- name: copy unit to server
   template:
     src: vault.service.j2
     dest: /etc/systemd/system/vault.service
+
+- name: ensure that vault started and active
+  service:
+    name: vault
+    enabled: yes
+    state: started

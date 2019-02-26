@@ -2,12 +2,12 @@
     "listener": [
         {
             "tcp": {
-            "address" : "0.0.0.0:8200",
+            "address" : "127.0.0.1:{{ backend_port }}",
             "tls_disable" : 1
             }
         }
     ],
-    "api_addr": "http://192.168.15.11:8200",
+    "api_addr": "http://127.0.0.1:{{ backend_port }}",
     "storage": {
         "file": {
         "path" : "{{ vault_data_path }}"

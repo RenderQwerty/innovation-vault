@@ -10,3 +10,6 @@ root_token=$(sed -n 4p "$initfile" | cut -d':' -f2 | tr -d '[:space:]')
 
 # unseal vault storage
 vault operator unseal $key_1 && vault operator unseal $key_2
+
+#provision jenkins secret
+vault login $root_token

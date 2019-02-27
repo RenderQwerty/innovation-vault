@@ -2,13 +2,13 @@
 Description=vault service
 Requires=network-online.target
 After=network-online.target
-ConditionFileNotEmpty={{ vault_config_path }}/config.json
+ConditionFileNotEmpty={{ vault_config_path }}/config.hcl
 
 [Service]
 EnvironmentFile=-/etc/sysconfig/vault
 Environment=GOMAXPROCS=2
 Restart=on-failure
-ExecStart=/usr/sbin/vault server -config={{ vault_config_path }}/config.json
+ExecStart=/usr/sbin/vault server -config={{ vault_config_path }}/config.hcl
 StandardOutput={{ vault_log_path }}/output.log
 StandardError={{ vault_log_path }}/error.log
 LimitMEMLOCK=infinity

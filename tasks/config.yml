@@ -11,8 +11,8 @@
 
 - name: copy config
   template:
-    src: config.json.j2
-    dest: "{{ vault_config_path }}/config.json"
+    src: config.hcl.j2
+    dest: "{{ vault_config_path }}/config.hcl"
 
 - name: copy unit to server
   template:

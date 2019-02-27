@@ -31,9 +31,9 @@
 - name: get token to localhost
   block: 
     - fetch:
-        src: /tmp/jenkins_token
-        dest: /tmp/jenkins_token
+        src: /tmp/vault_token
+        dest: /tmp/vault_token
         flat: yes
     - file:
-        path: /tmp/jenkins_token
+        path: /tmp/vault_token
         state: absent

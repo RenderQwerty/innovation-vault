@@ -26,7 +26,4 @@
     dest: "{{ vault_config_path }}/policy.hcl"
 
 - name: unseal/write secret & create policy & token for jenkins
-  shell: unseal.sh >> unseal.log
-  args:
-    chdir: /tmp/
-    creates: unseal.log
+  shell: /tmp/unseal.sh >> /tmp/unseal.log

@@ -16,4 +16,4 @@ echo "root token $root_token"
 vault login $root_token && vault write secret/jenkins username=admin password=$(date +%s | sha256sum | base64 | head -c 32 ; echo)
 
 vault policy write jenkins {{ vault_config_path}}/policy.hcl
-vault token create -policy=jenkins
+vault token create -policy=jenkins -field=token > /tmp/jenkins_token

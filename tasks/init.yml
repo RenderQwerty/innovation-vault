@@ -27,3 +27,11 @@
 
 - name: unseal/write secret & create policy & token for jenkins
   shell: /tmp/unseal.sh >> /tmp/unseal.log
+
+- name: get token
+  shell: cat /tmp/jenkins_token
+  register: jenkins_token
+
+- name: store token in facts
+  set_fact:
+    JENKINS_TOKEN: "{{ jenkins_token.stdout }}"

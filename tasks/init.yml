@@ -7,7 +7,11 @@
 
 - name: initialise vault server
   block:
-    - shell: export VAULT_ADDR="http://127.0.0.1:{{ backend_port }}" && vault operator init -key-shares=2 -key-threshold=2 > "{{ vault_config_path }}"/init.file
+    - file:
+        path: "{{ vault_config_path }}/init.file"
+        state: touch
+
+    - shell: export VAULT_ADDR="http://127.0.0.1:{{ backend_port }}" && vault operator init -key-shares=2 -key-threshold=2
       register: output
 
     - debug: msg="{{ output.stdout_lines }}"

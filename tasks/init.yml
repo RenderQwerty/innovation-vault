@@ -33,7 +33,7 @@
     - shell: cat /tmp/jenkins_token
       register: jenkins_token
     - set_fact:
-      JENKINS_TOKEN: "{{ jenkins_token.stdout }}"
+        JENKINS_TOKEN: "{{ jenkins_token.stdout }}"
     - file:
         path: /tmp/jenkins_token
         state: absent

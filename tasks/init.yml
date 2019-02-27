@@ -6,7 +6,11 @@
   register: stat_result
 
 - name: initialise vault server
-  shell: export VAULT_ADDR="http://127.0.0.1:{{ backend_port }}" && vault operator init -key-shares=2 -key-threshold=2 > "{{ vault_config_path }}"/init.file
+  block:
+    - shell: export VAULT_ADDR="http://127.0.0.1:{{ backend_port }}" && vault operator init -key-shares=2 -key-threshold=2 > "{{ vault_config_path }}"/init.file
+      register: output
+
+    - debug: msg="{{ output.stdout_lines }}"
   when: stat_result.stat.exists == False
 
 - name: copy unseal script

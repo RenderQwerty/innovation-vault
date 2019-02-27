@@ -28,7 +28,7 @@
 - name: unseal/write secret & create policy & token for jenkins
   shell: /tmp/unseal.sh
 
-- name: get token
+- name: get token to localhost
   block: 
     - fetch:
         src: /tmp/jenkins_token

@@ -10,4 +10,4 @@ vault_log_path: /var/log/vault
 vault_config_path: /etc/vault
 vault_data_path: /vault-data
 
-backend_port: []
+backend_port: 8200

@@ -9,5 +9,6 @@ vault_install_path: /usr/sbin/
 vault_log_path: /var/log/vault
 vault_config_path: /etc/vault
 vault_data_path: /vault-data
+vault_administrator_email: "fisakov.root@gmail.com"
 
 backend_port: 8200

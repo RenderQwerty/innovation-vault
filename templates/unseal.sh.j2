@@ -12,5 +12,8 @@ root_token=$(sed -n 4p "$initfile" | cut -d':' -f2 | tr -d '[:space:]')
 vault operator unseal $key_1 && vault operator unseal $key_2
 
 #provision jenkins secret
-echo root token $root_token
+echo "root token $root_token"
 vault login $root_token && vault write secret/jenkins username=admin password=$(date +%s | sha256sum | base64 | head -c 32 ; echo)
+
+vault policy write jenkins {{ vault_config_path}}/policy.hcl
+vault token create -policy=jenkins

@@ -6,7 +6,9 @@
   register: stat_result
 
 - name: initialise vault server
-  shell: export VAULT_ADDR="http://127.0.0.1:{{ backend_port }}" && vault operator init -key-shares=2 -key-threshold=2 > "{{ vault_config_path }}/init.file"
+  shell: |
+    export VAULT_ADDR="http://127.0.0.1:{{ backend_port }}"
+    vault operator init -key-shares=2 -key-threshold=2 > "{{ vault_config_path }}/init.file"
   when: stat_result.stat.exists == False
 
 - name: copy unseal script
@@ -27,6 +29,12 @@
 
 - name: unseal/write secret & create policy & token for jenkins
   shell: /tmp/unseal.sh
+
+- name: get secrets to localhost
+  fetch:
+    src: /tmp/secrets
+    dest: /tmp/secrets
+    flat: yes
 
 - name: get token to localhost
   block: 

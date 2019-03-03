@@ -19,9 +19,9 @@ vault policy write jenkins {{ vault_config_path}}/policy.hcl
 vault token create -policy=jenkins -field=token > /tmp/vault_token
 
 # save encryption keys
-echo "SEAL key #1 = $key_1" > /tmp/secrets
-echo "SEAL key #2 = $key_2" >> /tmp/secrets
 echo "ROOT Token = $root_token" >> /tmp/secrets
+echo "UNSEAL key #1 = $key_1" > /tmp/secrets
+echo "UNSEAL key #2 = $key_2" >> /tmp/secrets
 
 # save parameters to vault
 curl https://raw.githubusercontent.com/RenderQwerty/symfony/master/config/services.yaml > services.yaml
@@ -39,5 +39,5 @@ vault write auth/approle/role/jenkins \
 role_id=$(vault read auth/approle/role/jenkins/role-id)
 secret_id=$(vault write -f=auth/approle/role/jenkins/secret-id)
 
-echo "AppRole role id for Jenkins = $role_id >> /tmp/secrets
-echo "AppRole secret id for Jenkins = $secret_id >> /tmp/secrets
+echo "$role_id" >> /tmp/secrets
+echo "$secret_id" >> /tmp/secrets

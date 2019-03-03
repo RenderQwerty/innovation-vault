@@ -37,9 +37,12 @@ vault write auth/approle/role/jenkins \
     token_max_ttl=90m \
     policies="jenkins"
 
+
 role_id=$(vault read auth/approle/role/jenkins/role-id | tail -1)
 secret_id=$(vault write -f auth/approle/role/jenkins/secret-id | tail -2)
+jenkins_token=$(vault token create -policy=jenkins)
 echo "--------" >> /tmp/secrets
 
-echo "Role ID = $role_id" >> /tmp/secrets
+echo "$role_id" >> /tmp/secrets
 echo "$secret_id" >> /tmp/secrets
+echo "Jenkins token = $jenkins_token" >> /tmp/secrets

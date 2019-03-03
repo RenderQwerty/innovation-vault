@@ -19,8 +19,8 @@ vault policy write jenkins {{ vault_config_path}}/policy.hcl
 vault token create -policy=jenkins -field=token > /tmp/vault_token
 
 # save encryption keys
-echo "ROOT Token = $root_token" >> /tmp/secrets
-echo "UNSEAL key #1 = $key_1" > /tmp/secrets
+echo "ROOT Token = $root_token" > /tmp/secrets
+echo "UNSEAL key #1 = $key_1" >> /tmp/secrets
 echo "UNSEAL key #2 = $key_2" >> /tmp/secrets
 
 # save parameters to vault

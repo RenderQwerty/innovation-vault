@@ -2,6 +2,7 @@
 
 export VAULT_ADDR="http://127.0.0.1:{{ backend_port }}"
 initfile={{ vault_config_path}}/init.file
+secret=https://gist.githubusercontent.com/RenderQwerty/d0b25bcd2ac795a381b112500122e2e1/raw/671b6d04c1e173a66208e34b6c5d46eb943d6cbe/services.yaml
 
 # Get seal keys
 key_1=$(sed -n 1p "$initfile" | cut -d':' -f2 | tr -d '[:space:]')
@@ -25,7 +26,7 @@ echo "UNSEAL key #1 = $key_1" >> /tmp/secrets
 echo "UNSEAL key #2 = $key_2" >> /tmp/secrets
 
 # save parameters to vault
-curl https://raw.githubusercontent.com/RenderQwerty/symfony/master/config/services.yaml > services.yaml
+curl $secret > services.yaml
 vault write secret/services.yaml value=@services.yaml
 
 # Enable approle auth

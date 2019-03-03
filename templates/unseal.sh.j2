@@ -22,3 +22,22 @@ vault token create -policy=jenkins -field=token > /tmp/vault_token
 echo "SEAL key #1 = $key_1" > /tmp/secrets
 echo "SEAL key #2 = $key_2" >> /tmp/secrets
 echo "ROOT Token = $root_token" >> /tmp/secrets
+
+# save parameters to vault
+curl https://raw.githubusercontent.com/RenderQwerty/symfony/master/config/services.yaml > services.yaml
+vault write secret/services.yaml value=@services.yml
+
+# Enable approle auth
+vault auth enable approle
+vault write auth/approle/role/jenkins \
+    secret_id_ttl=10m \
+    token_num_uses=5 \
+    token_ttl=20m \
+    token_max_ttl=30m \
+    secret_id_num_uses=40
+
+role_id=$(vault read auth/approle/role/jenkins/role-id)
+secret_id=$(vault write -f=auth/approle/role/jenkins/secret-id)
+
+echo "AppRole role id for Jenkins = $role_id >> /tmp/secrets
+echo "AppRole secret id for Jenkins = $secret_id >> /tmp/secrets

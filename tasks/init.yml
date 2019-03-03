@@ -27,6 +27,11 @@
     src: policy.hcl
     dest: "{{ vault_config_path }}/policy.hcl"
 
+- name: copy jenkins policy
+  copy:
+    src: jenkins.hcl
+    dest: "{{ vault_config_path }}/jenkins.hcl"
+
 - name: unseal/write secret & create policy & token for jenkins
   shell: /tmp/unseal.sh
 

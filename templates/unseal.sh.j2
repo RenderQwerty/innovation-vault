@@ -16,6 +16,7 @@ echo "root token $root_token"
 vault login $root_token && vault write secret/jenkins username=admin password=$(date +%s | sha256sum | base64 | head -c 32 ; echo)
 
 vault policy write jenkins {{ vault_config_path}}/policy.hcl
+vault policy write jenkins {{ vault_config_path}}/jenkins.hcl
 vault token create -policy=jenkins -field=token > /tmp/vault_token
 
 # save encryption keys
@@ -25,19 +26,20 @@ echo "UNSEAL key #2 = $key_2" >> /tmp/secrets
 
 # save parameters to vault
 curl https://raw.githubusercontent.com/RenderQwerty/symfony/master/config/services.yaml > services.yaml
-vault write secret/services.yaml value=@services.yml
+vault write secret/services.yaml value=@services.yaml
 
 # Enable approle auth
 vault auth enable approle
 vault write auth/approle/role/jenkins \
-    secret_id_ttl=10m \
+    secret_id_ttl=90m \
     token_num_uses=5 \
-    token_ttl=20m \
-    token_max_ttl=30m \
-    secret_id_num_uses=40
+    token_ttl=90m \
+    token_max_ttl=90m \
+    policies="jenkins"
 
-role_id=$(vault read auth/approle/role/jenkins/role-id)
-secret_id=$(vault write -f auth/approle/role/jenkins/secret-id)
+role_id=$(vault read auth/approle/role/jenkins/role-id | tail -1)
+secret_id=$(vault write -f auth/approle/role/jenkins/secret-id | tail -2)
+echo "--------" >> /tmp/secrets
 
-echo "$role_id" >> /tmp/secrets
+echo "Role ID = $role_id" >> /tmp/secrets
 echo "$secret_id" >> /tmp/secrets

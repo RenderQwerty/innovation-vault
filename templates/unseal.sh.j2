@@ -37,7 +37,7 @@ vault write auth/approle/role/jenkins \
     secret_id_num_uses=40
 
 role_id=$(vault read auth/approle/role/jenkins/role-id)
-secret_id=$(vault write -f=auth/approle/role/jenkins/secret-id)
+secret_id=$(vault write -f auth/approle/role/jenkins/secret-id)
 
 echo "$role_id" >> /tmp/secrets
 echo "$secret_id" >> /tmp/secrets

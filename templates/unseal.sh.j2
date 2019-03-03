@@ -42,5 +42,5 @@ vault write auth/approle/role/jenkins \
 role_id=$(vault read auth/approle/role/jenkins/role-id | tail -1)
 jenkins_token=$(vault token create -policy=jenkins | grep -w token)
 echo "--------" >> /tmp/secrets
-echo "Jenkins AppRole $role_id" >> /tmp/secrets
 echo "Jenkins $jenkins_token" >> /tmp/secrets
+echo "Jenkins AppRole $role_id" >> /tmp/secrets
